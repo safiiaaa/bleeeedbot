@@ -7,7 +7,7 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #f2f2f7; /* iOS background color */
+    background-color: rgba(255, 255, 255, 0.9); /* Blurry white background */
     overflow: hidden;
 }
 
@@ -17,8 +17,8 @@ body {
 
 .title {
     font-size: 3rem;
-    color: #000; /* iOS title color */
-    text-shadow: none; /* Remove text shadow */
+    color: #0070ff; /* iOS blue */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); /* Text shadow for depth */
     margin-bottom: 20px; /* Add some space below the title */
 }
 
@@ -30,18 +30,20 @@ body {
     display: inline-block;
     padding: 10px 20px;
     margin: 0 10px;
-    color: #007aff; /* iOS button text color */
+    color: #fff; /* White text */
     text-decoration: none;
     font-size: 1.2rem;
-    border: 1px solid #007aff; /* iOS button border color */
-    border-radius: 8px; /* iOS button border radius */
-    transition: color 0.3s ease, transform 0.3s ease;
+    border: none;
+    border-radius: 8px; /* Rounded corners */
+    background-color: rgba(0, 112, 255, 0.8); /* iOS blue with transparency */
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Shadow for depth */
 }
 
 .button:hover {
-    color: #fff; /* Change button text color on hover */
-    background-color: #007aff; /* Change button background color on hover */
+    background-color: rgba(0, 112, 255, 1); /* Brighter blue on hover */
     transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Bigger shadow on hover */
 }
 
 footer {
