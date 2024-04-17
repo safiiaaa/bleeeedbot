@@ -7,7 +7,7 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background: url('background.jpg') center/cover fixed no-repeat;
+    background-color: #333;
     overflow: hidden;
 }
 
