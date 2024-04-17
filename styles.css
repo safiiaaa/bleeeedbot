@@ -7,7 +7,7 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #333;
+    background-color: #f2f2f7; /* iOS background color */
     overflow: hidden;
 }
 
@@ -17,8 +17,9 @@ body {
 
 .title {
     font-size: 3rem;
-    color: #fff;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    color: #000; /* iOS title color */
+    text-shadow: none; /* Remove text shadow */
+    margin-bottom: 20px; /* Add some space below the title */
 }
 
 .button-container {
@@ -29,14 +30,17 @@ body {
     display: inline-block;
     padding: 10px 20px;
     margin: 0 10px;
-    color: #fff;
+    color: #007aff; /* iOS button text color */
     text-decoration: none;
     font-size: 1.2rem;
+    border: 1px solid #007aff; /* iOS button border color */
+    border-radius: 8px; /* iOS button border radius */
     transition: color 0.3s ease, transform 0.3s ease;
 }
 
 .button:hover {
-    color: #ff0;
+    color: #fff; /* Change button text color on hover */
+    background-color: #007aff; /* Change button background color on hover */
     transform: translateY(-3px);
 }
 
@@ -45,6 +49,6 @@ footer {
     bottom: 10px;
     left: 50%;
     transform: translateX(-50%);
-    color: #fff;
+    color: #666; /* iOS footer text color */
     font-size: 0.8rem;
 }
