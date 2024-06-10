@@ -24,7 +24,7 @@ body{
   align-items: center;
 
   background-color: #000;/*#467599;*/
-  border-bottom: 5px solid #fff;
+  border-bottom: 5px solid #000;
   box-shadow: 0 0 30px -18px #000;
 
 }
