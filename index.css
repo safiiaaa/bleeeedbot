@@ -186,7 +186,7 @@ body{
   margin-top: 20px;
 }
 #chat_logout{
-  color: #D64045;
+  color: #39FF14;
   cursor: pointer;
 }
 #chat_logout:hover{
@@ -228,7 +228,7 @@ body{
 .enabled{
   transition: background-color 0.5s;
   color: #fff;
-  background-color: #D64045; /*#5B7553;*/
+  background-color: #39FF14; /*#5B7553;*/
   cursor: pointer;
 }
 #title_container.chat_title_container{
@@ -254,7 +254,7 @@ body{
   height: 40px;
   animation: spin 1s linear infinite;
 
-  border-top: 6px solid #D64045;
+  border-top: 6px solid #39FF14;
   border-bottom: 6px solid #fff;
   border-left: 6px solid #E9FFF9;
   border-right: 6px solid #E9FFF9;
@@ -273,7 +273,7 @@ body{
   100% {}
 }
 ::selection {
-  background-color: #D64045;
+  background-color: #39FF14;
   color: #fff;
 }
 /* width */
@@ -286,6 +286,6 @@ body{
 }
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #D64045;
+  background: #39FF14;
   border-radius: 5px;
 }
