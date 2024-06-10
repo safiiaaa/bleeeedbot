@@ -195,10 +195,19 @@ window.onload = function() {
       chat_inner_container.append(chat_content_container, chat_input_container, chat_logout_container)
       chat_container.append(chat_inner_container)
       document.body.append(chat_container)
-      // After creating the chat. We immediatly create a loading circle in the 'chat_content_container'
+      // After creating the chat. We immediately create a loading circle in the 'chat_content_container'
       parent.create_load('chat_content_container')
       // then we "refresh" and get the chat data from Firebase
       parent.refresh_chat()
+
+      // Add an event listener for the Enter key
+      chat_input.addEventListener('keyup', function(event) {
+        event.preventDefault();
+        if (event.keyCode === 13) {
+          // Trigger the click event of the send button
+          chat_input_send.click();
+        }
+      });
     }
     // Save name. It literally saves the name to localStorage
     save_name(name){
@@ -249,7 +258,7 @@ window.onload = function() {
       db.ref('chats/').on('value', function(messages_object) {
         // When we get the data clear chat_content_container
         chat_content_container.innerHTML = ''
-        // if there are no messages in the chat. Retrun . Don't load anything
+        // if there are no messages in the chat. Return. Don't load anything
         if(messages_object.numChildren() == 0){
           return
         }
@@ -327,9 +336,10 @@ window.onload = function() {
   // So we've "built" our app. Let's make it work!!
   var app = new MEME_CHAT()
   // If we have a name stored in localStorage.
-  // Then use that name. Otherwise , if not.
+  // Then use that name. Otherwise, if not.
   // Go to home.
   if(app.get_name() != null){
     app.chat()
   }
 }
+
