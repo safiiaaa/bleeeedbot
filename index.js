@@ -165,40 +165,47 @@ window.onload = function() {
             }
             // Enable the loading circle in the 'chat_content_container'
             parent.create_load('chat_content_container')
-            // Send the message. Pass in the chat_input.value
-            parent.send_message(chat_input.value)
+            // Send the message or upload the file
+                        if (chat_input.type === "file" && chat_input.files.length > 0) {
+              // If a file is selected, call the function to handle file upload
+              parent.upload_file(chat_input.files[0]);
+            } else {
+              // If no file is selected, send the text message
+              parent.send_message(chat_input.value);
+            }
+
             // Clear the chat input box
-            chat_input.value = ''
+            chat_input.value = '';
             // Focus on the input just after
-            chat_input.focus()
+            chat_input.focus();
           }
-        }else{
-          chat_input_send.classList.remove('enabled')
+        } else {
+          chat_input_send.classList.remove('enabled');
         }
-      }
+      };
 
-      var chat_logout_container = document.createElement('div')
-      chat_logout_container.setAttribute('id', 'chat_logout_container')
+      var chat_logout_container = document.createElement('div');
+      chat_logout_container.setAttribute('id', 'chat_logout_container');
 
-      var chat_logout = document.createElement('button')
-      chat_logout.setAttribute('id', 'chat_logout')
-      chat_logout.textContent = `${parent.get_name()} • logout`
+      var chat_logout = document.createElement('button');
+      chat_logout.setAttribute('id', 'chat_logout');
+      chat_logout.textContent = `${parent.get_name()} • logout`;
       // "Logout" is really just deleting the name from the localStorage
       chat_logout.onclick = function(){
-        localStorage.clear()
+        localStorage.clear();
         // Go back to home page
-        parent.home()
-      }
+        parent.home();
+      };
 
-      chat_logout_container.append(chat_logout)
-      chat_input_container.append(chat_input, chat_input_send)
-      chat_inner_container.append(chat_content_container, chat_input_container, chat_logout_container)
-      chat_container.append(chat_inner_container)
-      document.body.append(chat_container)
+      chat_logout_container.append(chat_logout);
+      chat_input_container.append(chat_input, chat_input_send);
+      chat_inner_container.append(chat_content_container, chat_input_container, chat_logout_container);
+      chat_container.append(chat_inner_container);
+      document.body.append(chat_container);
       // After creating the chat. We immediately create a loading circle in the 'chat_content_container'
-      parent.create_load('chat_content_container')
+      parent.create_load('chat_content_container');
       // then we "refresh" and get the chat data from Firebase
-      parent.refresh_chat()
+      parent.refresh_chat();
 
       // Add an event listener for the Enter key
       chat_input.addEventListener('keyup', function(event) {
@@ -212,23 +219,23 @@ window.onload = function() {
     // Save name. It literally saves the name to localStorage
     save_name(name){
       // Save name to localStorage
-      localStorage.setItem('name', name)
+      localStorage.setItem('name', name);
     }
     // Sends message/saves the message to firebase database
     send_message(message){
-      var parent = this
+      var parent = this;
       // if the local storage name is null and there is no message
       // then return/don't send the message. The user is somehow hacking
       // to send messages. Or they just deleted the
       // localstorage themselves. But hacking sounds cooler!!
       if(parent.get_name() == null && message == null){
-        return
+        return;
       }
 
       // Get the firebase database value
       db.ref('chats/').once('value', function(message_object) {
         // This index is mortant. It will help organize the chat in order
-        var index = parseFloat(message_object.numChildren()) + 1
+        var index = parseFloat(message_object.numChildren()) + 1;
         db.ref('chats/' + `message_${index}`).set({
           name: parent.get_name(),
           message: message,
@@ -236,31 +243,31 @@ window.onload = function() {
         })
         .then(function(){
           // After we send the chat refresh to get the new messages
-          parent.refresh_chat()
-        })
-      })
+          parent.refresh_chat();
+        });
+      });
     }
     // Get name. Gets the username from localStorage
     get_name(){
       // Get the name from localstorage
       if(localStorage.getItem('name') != null){
-        return localStorage.getItem('name')
-      }else{
-        this.home()
-        return null
+        return localStorage.getItem('name');
+      } else {
+        this.home();
+        return null;
       }
     }
     // Refresh chat gets the message/chat data from firebase
     refresh_chat(){
-      var chat_content_container = document.getElementById('chat_content_container')
+      var chat_content_container = document.getElementById('chat_content_container');
 
       // Get the chats from firebase
       db.ref('chats/').on('value', function(messages_object) {
         // When we get the data clear chat_content_container
-        chat_content_container.innerHTML = ''
+        chat_content_container.innerHTML = '';
         // if there are no messages in the chat. Return. Don't load anything
         if(messages_object.numChildren() == 0){
-          return
+          return;
         }
 
         // OK! SO IF YOU'RE A ROOKIE CODER. THIS IS GOING TO BE
@@ -268,13 +275,13 @@ window.onload = function() {
 
         // convert the message object values to an array.
         var messages = Object.values(messages_object.val());
-        var guide = [] // this will be our guide to organizing the messages
-        var unordered = [] // unordered messages
-        var ordered = [] // we're going to order these messages
+        var guide = []; // this will be our guide to organizing the messages
+        var unordered = []; // unordered messages
+        var ordered = []; // we're going to order these messages
 
         for (var i, i = 0; i < messages.length; i++) {
           // The guide is simply an array from 0 to the messages.length
-          guide.push(i+1)
+          guide.push(i+1);
           // unordered is the [message, index_of_the_message]
           unordered.push([messages[i], messages[i].index]);
         }
@@ -282,64 +289,70 @@ window.onload = function() {
         // Now this is straight up from stack overflow 🤣
         // Sort the unordered messages by the guide
         guide.forEach(function(key) {
-          var found = false
+          var found = false;
           unordered = unordered.filter(function(item) {
             if(!found && item[1] == key) {
               // Now push the ordered messages to ordered array
-              ordered.push(item[0])
-              found = true
-              return false
-            }else{
-              return true
+              ordered.push(item[0]);
+              found = true;
+              return false;
+            } else {
+              return true;
             }
-          })
-        })
+          });
+        });
 
         // Now we're done. Simply display the ordered messages
         ordered.forEach(function(data) {
-          var name = data.name
-          var message = data.message
+          var name = data.name;
+          var message = data.message;
 
-          var message_container = document.createElement('div')
-          message_container.setAttribute('class', 'message_container')
+          var message_container = document.createElement('div');
+          message_container.setAttribute('class', 'message_container');
 
-          var message_inner_container = document.createElement('div')
-          message_inner_container.setAttribute('class', 'message_inner_container')
+          var message_inner_container = document.createElement('div');
+          message_inner_container.setAttribute('class', 'message_inner_container');
 
-          var message_user_container = document.createElement('div')
-          message_user_container.setAttribute('class', 'message_user_container')
+          var message_user_container = document.createElement('div');
+          message_user_container.setAttribute('class', 'message_user_container');
 
-          var message_user = document.createElement('p')
-          message_user.setAttribute('class', 'message_user')
-          message_user.textContent = `${name}`
+          var message_user = document.createElement('p');
+          message_user.setAttribute('class', 'message_user');
+          message_user.textContent = `${name}`;
 
-          var message_content_container = document.createElement('div')
-          message_content_container.setAttribute('class', 'message_content_container')
+          var message_content_container = document.createElement('div');
+          message_content_container.setAttribute('class', 'message_content_container');
 
-          var message_content = document.createElement('p')
-          message_content.setAttribute('class', 'message_content')
-          message_content.textContent = `${message}`
+          var message_content = document.createElement('p');
+          message_content.setAttribute('class', 'message_content');
+          message_content.textContent = `${message}`;
 
-          message_user_container.append(message_user)
-          message_content_container.append(message_content)
-          message_inner_container.append(message_user_container, message_content_container)
-          message_container.append(message_inner_container)
+          message_user_container.append(message_user);
+          message_content_container.append(message_content);
+          message_inner_container.append(message_user_container, message_content_container);
+          message_container.append(message_inner_container);
 
-          chat_content_container.append(message_container)
+          chat_content_container.append(message_container);
         });
         // Go to the recent message at the bottom of the container
         chat_content_container.scrollTop = chat_content_container.scrollHeight;
-    })
+      });
+    }
 
+    // Function to handle file uploads
+    upload_file(file) {
+      // Handle file upload logic here
+      console.log("Uploading file:", file);
+      // You can implement the file upload logic using Firebase storage or any other service
     }
   }
+
   // So we've "built" our app. Let's make it work!!
-  var app = new MEME_CHAT()
+  var app = new MEME_CHAT();
   // If we have a name stored in localStorage.
   // Then use that name. Otherwise, if not.
   // Go to home.
   if(app.get_name() != null){
-    app.chat()
+    app.chat();
   }
 }
-
