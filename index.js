@@ -152,21 +152,21 @@ window.onload = function() {
       // Only a max message length of 1000
       chat_input.setAttribute('maxlength', 1000)
       // Get the name of the user
-      chat_input.placeholder = `${parent.get_name()}. Say something...`
-      chat_input.onkeyup  = function(){
-        if(chat_input.value.length > 0){
-          chat_input_send.removeAttribute('disabled')
-          chat_input_send.classList.add('enabled')
-          chat_input_send.onclick = function(){
-            chat_input_send.setAttribute('disabled', true)
-            chat_input_send.classList.remove('enabled')
-            if(chat_input.value.length <= 0){
-              return
+            chat_input.placeholder = `${parent.get_name()}. Say something...`;
+      chat_input.onkeyup = function() {
+        if (chat_input.value.length > 0) {
+          chat_input_send.removeAttribute('disabled');
+          chat_input_send.classList.add('enabled');
+          chat_input_send.onclick = function() {
+            chat_input_send.setAttribute('disabled', true);
+            chat_input_send.classList.remove('enabled');
+            if (chat_input.value.length <= 0) {
+              return;
             }
             // Enable the loading circle in the 'chat_content_container'
-            parent.create_load('chat_content_container')
+            parent.create_load('chat_content_container');
             // Send the message or upload the file
-                        if (chat_input.type === "file" && chat_input.files.length > 0) {
+            if (chat_input.type === "file" && chat_input.files.length > 0) {
               // If a file is selected, call the function to handle file upload
               parent.upload_file(chat_input.files[0]);
             } else {
@@ -338,34 +338,36 @@ window.onload = function() {
         chat_content_container.scrollTop = chat_content_container.scrollHeight;
       });
     }
-
+    
     // Function to handle file uploads
-      upload_file(file) {
-  var parent = this;
-  // Get a reference to the storage service, which is used to create references in your storage bucket
-  var storage = firebase.storage();
-  // Create a storage reference from our storage service
-  var storageRef = storage.ref();
-  // Create a unique filename for the uploaded file
-  var filename = new Date().getTime() + '_' + file.name;
-  // Create a reference to the location you want to upload your file
-  var fileRef = storageRef.child('uploads/' + filename);
-  
-  // Upload the file to Firebase Storage
-  fileRef.put(file).then(function(snapshot) {
-    console.log('File uploaded successfully!');
-    // Get the download URL for the uploaded file
-    fileRef.getDownloadURL().then(function(url) {
-      // Send a message with the file download URL
-      parent.send_message(url);
-    }).catch(function(error) {
-      console.error('Error getting download URL:', error);
-    });
-  }).catch(function(error) {
-    console.error('Error uploading file:', error);
-  });
-}
- // So we've "built" our app. Let's make it work!!
+    upload_file(file) {
+      var parent = this;
+      // Get a reference to the storage service, which is used to create references in your storage bucket
+      var storage = firebase.storage();
+      // Create a storage reference from our storage service
+      var storageRef = storage.ref();
+            // Create a unique filename for the uploaded file
+      var filename = new Date().getTime() + '_' + file.name;
+      // Create a reference to the location you want to upload your file
+      var fileRef = storageRef.child('uploads/' + filename);
+      
+      // Upload the file to Firebase Storage
+      fileRef.put(file).then(function(snapshot) {
+        console.log('File uploaded successfully!');
+        // Get the download URL for the uploaded file
+        fileRef.getDownloadURL().then(function(url) {
+          // Send a message with the file download URL
+          parent.send_message(url);
+        }).catch(function(error) {
+          console.error('Error getting download URL:', error);
+        });
+      }).catch(function(error) {
+        console.error('Error uploading file:', error);
+      });
+    }
+  }
+
+  // So we've "built" our app. Let's make it work!!
   var app = new MEME_CHAT();
   // If we have a name stored in localStorage.
   // Then use that name. Otherwise, if not.
