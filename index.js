@@ -340,7 +340,7 @@ window.onload = function() {
     }
 
     // Function to handle file uploads
-upload_file(file) {
+      upload_file(file) {
   var parent = this;
   // Get a reference to the storage service, which is used to create references in your storage bucket
   var storage = firebase.storage();
