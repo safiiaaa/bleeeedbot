@@ -339,14 +339,32 @@ window.onload = function() {
       });
     }
 
-    // Function to handle file uploads
-    upload_file(file) {
-      // Handle file upload logic here
-      console.log("Uploading file:", file);
-      // You can implement the file upload logic using Firebase storage or any other service
-    }
-  }
-
+// Function to handle file uploads
+upload_file(file) {
+  var parent = this;
+  // Get a reference to the storage service, which is used to create references in your storage bucket
+  var storage = firebase.storage();
+  // Create a storage reference from our storage service
+  var storageRef = storage.ref();
+  // Create a unique filename for the uploaded file
+  var filename = new Date().getTime() + '_' + file.name;
+  // Create a reference to the location you want to upload your file
+  var fileRef = storageRef.child('uploads/' + filename);
+  
+  // Upload the file to Firebase Storage
+  fileRef.put(file).then(function(snapshot) {
+    console.log('File uploaded successfully!');
+    // Get the download URL for the uploaded file
+    fileRef.getDownloadURL().then(function(url) {
+      // Send a message with the file download URL
+      parent.send_message(url);
+    }).catch(function(error) {
+      console.error('Error getting download URL:', error);
+    });
+  }).catch(function(error) {
+    console.error('Error uploading file:', error);
+  });
+}
   // So we've "built" our app. Let's make it work!!
   var app = new MEME_CHAT();
   // If we have a name stored in localStorage.
