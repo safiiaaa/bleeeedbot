@@ -186,7 +186,7 @@ body{
   margin-top: 20px;
 }
 #chat_logout{
-  color: #39FF14;
+  color: #000;
   cursor: pointer;
 }
 #chat_logout:hover{
