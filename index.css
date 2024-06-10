@@ -82,7 +82,7 @@ body{
   font-size: 15px;
   font-weight: bold;
   text-align: center;
-  background-color: Transparent;
+  background-color: #272727;
   border-bottom: 2px dashed #fff;
 
 }
@@ -144,7 +144,7 @@ body{
 
   float: left;
   border-bottom: 2px dashed #fff;
-  background-color: Transparent;
+  background-color: #272727;
 
   padding-left: 15px;
   padding-right: 15px;
@@ -155,7 +155,7 @@ body{
   width: 95%;
   height: 100%;
   float: left;
-  background-color: Transparent;
+  background-color: #272727;
   color: #fff;
   font-size: 15px;
 }
@@ -164,13 +164,13 @@ body{
   height: 100%;
   float: left;
   font-size: 18px;
-  background-color: Transparent;
+  background-color: #272727;
   text-align: right;
   color: #ccc;
 }
 #chat_input_send.enabled{
   color: #39FF14;
-  background-color: Transparent;
+  background-color: #272727;
   cursor: pointer;
 
 }
