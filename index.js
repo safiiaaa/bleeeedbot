@@ -3,12 +3,12 @@
 window.onload = function() {
   // Your web app's Firebase configuration
   var firebaseConfig = {
-    apiKey: "",
-    authDomain: "",
-    projectId: "",
-    storageBucket: "",
-    messagingSenderId: "",
-    appId: ""
+    apiKey: "AIzaSyBQd6pYcizSzPxxoKDQVZpI1ScPAjorgs8",
+    authDomain: "bender-c099b.firebaseapp.com",
+    projectId: "bender-c099b",
+    storageBucket: "bender-c099b.appspot.com",
+    messagingSenderId: "882988516827",
+    appId: "1:882988516827:web:3250871565d740ea8453fe"
   };
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
