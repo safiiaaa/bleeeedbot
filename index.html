@@ -1,32 +1,22 @@
-<!-- index.html -->
-
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Chat App</title>
-  <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-  <ul id="messages"></ul>
-  <input id="m" autocomplete="off" /><button onclick="sendMessage()">Send</button>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title> MemeChat 2.0 </title>
+    <!-- Google fonts. -->
+    <link href='https://fonts.googleapis.com/css?family=Bungee Outline' rel='stylesheet'/>
+    <link href='https://fonts.googleapis.com/css?family=Varela Round' rel='stylesheet'/>
+    <!-- Use font awesome icons. -->
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <!-- Use firebase app and database. -->
+    <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-database.js"></script>
 
-  <script src="/socket.io/socket.io.js"></script>
-  <script>
-    var socket = io();
+    <!-- The CSS and JS file must be declared after the things above-->
+    <link rel="stylesheet" href="index.css"/>
+    <script type="text/javascript" src="index.js"></script>
 
-    function sendMessage() {
-      var msg = document.getElementById('m').value;
-      socket.emit('chat message', msg);
-      document.getElementById('m').value = '';
-    }
-
-    socket.on('chat message', function(msg) {
-      var item = document.createElement('li');
-      item.textContent = msg;
-      document.getElementById('messages').appendChild(item);
-    });
-  </script>
-</body>
+  </head>
+  <body>
+  </body>
 </html>
