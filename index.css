@@ -23,9 +23,9 @@ body{
   justify-content: center;
   align-items: center;
 
-  background-color: #D64045;/*#467599;*/
+  background-color: #000;/*#467599;*/
   border-bottom: 5px solid #fff;
-  box-shadow: 0 0 30px -18px #D64045;
+  box-shadow: 0 0 30px -18px #000;
 
 }
 #title_inner_container{
@@ -36,12 +36,12 @@ body{
   justify-content: center;
   align-items: center;
 
-  /* background-color: #083D77; */
+  /* background-color: #fff; */
   border-radius: 200px;
 }
 #title{
   display: inline-block;
-  color: #fff;/*EBEBD3, C5283D*/
+  color: #39FF14;/*39FF14, C5283D*/
   font-size: 55px;
   letter-spacing: 2px;
   user-select: none;
