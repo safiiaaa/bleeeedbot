@@ -142,6 +142,36 @@ window.onload = function() {
       var chat_input_container = document.createElement('div')
       chat_input_container.setAttribute('id', 'chat_input_container')
 
+      // Create the file upload button
+    var fileUploadButton = document.createElement('button');
+    fileUploadButton.setAttribute('id', 'file_upload_button');
+    fileUploadButton.textContent = 'Upload File';
+
+    // Handle click event for file upload button
+    fileUploadButton.addEventListener('click', function() {
+        fileInput.click();
+    });
+
+    // Create the file input element (hidden)
+    var fileInput = document.createElement('input');
+    fileInput.setAttribute('type', 'file');
+    fileInput.setAttribute('id', 'file_input');
+    fileInput.style.display = 'none';
+
+    // Handle file selection
+    fileInput.addEventListener('change', function(event) {
+        var file = event.target.files[0];
+        if (file) {
+            // Call function to handle file upload
+            parent.upload_file(file);
+        }
+    });
+
+    // Append file upload button and input to chat input container
+    chat_input_container.appendChild(fileUploadButton);
+    chat_input_container.appendChild(fileInput);
+
+
       var chat_input_send = document.createElement('button')
       chat_input_send.setAttribute('id', 'chat_input_send')
       chat_input_send.setAttribute('disabled', true)
@@ -189,7 +219,7 @@ window.onload = function() {
 
       var chat_logout = document.createElement('button');
       chat_logout.setAttribute('id', 'chat_logout');
-      chat_logout.textContent = `${parent.get_name()} • logout`;
+      chat_logout.textContent = `${parent.get_name()} - logout`;
       // "Logout" is really just deleting the name from the localStorage
       chat_logout.onclick = function(){
         localStorage.clear();
